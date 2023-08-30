@@ -31,18 +31,6 @@ CREATE TABLE segments
     title varchar(255) not null  unique
 );
 
-
-
-SELECT * FROM cron.job;
-
-
 DROP EXTENSION IF EXISTS pg_cron;
 CREATE EXTENSION pg_cron;
 
-SELECT cron.schedule('* * * * *', $$DELETE FROM user_segment WHERE added_at < now() - interval '1 minute'$$);
-
-select cron.unschedule('JOPA NEGRA');
-
-SELECT * FROM cron.job;
-
-DELETE FROM user_segment WHERE added_at < now() - interval '1 minute'
