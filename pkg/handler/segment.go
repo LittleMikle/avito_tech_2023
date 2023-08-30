@@ -48,7 +48,7 @@ func (h *Handler) createSegment(c *gin.Context) {
 // @Failure 400,404 {object} errorResponse
 // @Failure 500 {object} errorResponse
 // @Failure default {object} errorResponse
-// @Router /api/segments/:id [post]
+// @Router /api/segments/:id [delete]
 func (h *Handler) deleteSegment(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {

@@ -86,23 +86,29 @@ func TestHandler_createSegment(t *testing.T) {
 }
 
 func TestHandler_deleteSegment(t *testing.T) {
-	type mockBehavior func(r *mock_service.MockSegmentation, userId int)
+	type mockBehavior func(r *mock_service.MockSegmentation, userId int, segment tech.Segment)
 
 	testTable := []struct {
 		name                 string
 		segmentId            int
+		inputBody            string
+		inputSegment         tech.Segment
 		mockBehavior         mockBehavior
 		expectedStatusCode   int
 		expectedResponseBody string
 	}{
 		{
-			name:      "Ok",
-			segmentId: 1,
-			mockBehavior: func(r *mock_service.MockSegmentation, userId int) {
+			name:      "BAD id",
+			segmentId: 000,
+			inputBody: `{"title": "Melushev_AVITO_DISCOUNT_30"}`,
+			inputSegment: tech.Segment{
+				Title: "Melushev_AVITO_DISCOUNT_30",
+			},
+			mockBehavior: func(r *mock_service.MockSegmentation, userId int, segment tech.Segment) {
 				r.EXPECT().DeleteSegment(userId).Return(1, nil)
 			},
-			expectedStatusCode:   200,
-			expectedResponseBody: `{"id":1}`,
+			expectedStatusCode:   400,
+			expectedResponseBody: `{"message":"invalid id param"}`,
 		},
 	}
 
@@ -123,7 +129,7 @@ func TestHandler_deleteSegment(t *testing.T) {
 
 			w := httptest.NewRecorder()
 			req := httptest.NewRequest("DELETE", "/:id",
-				bytes.NewBufferString(""))
+				bytes.NewBufferString(testCase.inputBody))
 
 			r.ServeHTTP(w, req)
 

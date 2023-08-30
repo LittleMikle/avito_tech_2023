@@ -7,6 +7,18 @@ import (
 	"strconv"
 )
 
+// @Summary Create User Segment
+// @Tags create
+// @Description create segment
+// @ID create-user-segment
+// @Accept  json
+// @Produce  json
+// @Param input body tech.UserSegment true "segment info"
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /api/users/create/:id [post]
 func (h *Handler) createUsersSeg(c *gin.Context) {
 	userId, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -36,6 +48,18 @@ func (h *Handler) createUsersSeg(c *gin.Context) {
 	})
 }
 
+// @Summary Delete User Segment
+// @Tags delete
+// @Description delete segment
+// @ID delete-user-segment
+// @Accept  json
+// @Produce  json
+// @Param input body tech.UserSegment true "segment info"
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /api/users/delete/:id [delete]
 func (h *Handler) deleteUsersSeg(c *gin.Context) {
 	userId, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -65,6 +89,17 @@ func (h *Handler) deleteUsersSeg(c *gin.Context) {
 	})
 }
 
+// @Summary Get User Segment
+// @Tags get
+// @Description get segments
+// @ID get-segment
+// @Accept  json
+// @Produce  json
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /api/users/:id [get]
 func (h *Handler) getUsersSeg(c *gin.Context) {
 	userId, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -81,6 +116,17 @@ func (h *Handler) getUsersSeg(c *gin.Context) {
 	c.JSON(http.StatusOK, segments)
 }
 
+// @Summary Get User History Segment
+// @Tags history
+// @Description get user history
+// @ID history-segment
+// @Accept  json
+// @Produce  json
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /api/users/history/:id [get]
 func (h *Handler) getHistory(c *gin.Context) {
 	userId, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -93,8 +139,22 @@ func (h *Handler) getHistory(c *gin.Context) {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
+
+	c.JSON(http.StatusOK, "HISTORY SAVED")
 }
 
+// @Summary Schedule Post and Delete User Segment
+// @Tags post delete
+// @Description schedule post delete segment
+// @ID schedule-post-segment
+// @Accept  json
+// @Produce  json
+// @Param input body tech.Segment true "segment info"
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /api/users/schedule/:id [post]
 func (h *Handler) scheduleDelete(c *gin.Context) {
 	userId, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -120,6 +180,18 @@ func (h *Handler) scheduleDelete(c *gin.Context) {
 	c.JSON(http.StatusOK, "SCHEDULER SET")
 }
 
+// @Summary Random User Segment
+// @Tags random
+// @Description random segment
+// @ID random-segment
+// @Accept  json
+// @Produce  json
+// @Param input body tech.Segment true "segment info"
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /api/users/random/:id [post]
 func (h *Handler) randomCreate(c *gin.Context) {
 	var input tech.Segment
 

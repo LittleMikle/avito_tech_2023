@@ -14,6 +14,21 @@ definitions:
     required:
     - title
     type: object
+  tech.UserSegment:
+    properties:
+      added_at:
+        type: string
+      id:
+        type: integer
+      segments:
+        items:
+          $ref: '#/definitions/tech.Segment'
+        type: array
+      user_id:
+        type: integer
+    required:
+    - segments
+    type: object
 host: localhost:8081
 info:
   contact: {}
@@ -22,7 +37,7 @@ info:
   version: "1.0"
 paths:
   /api/segments/:id:
-    post:
+    delete:
       consumes:
       - application/json
       description: delete segment
@@ -99,4 +114,224 @@ paths:
       summary: CreateSegment
       tags:
       - create
+  /api/users/:id:
+    get:
+      consumes:
+      - application/json
+      description: get segments
+      operationId: get-segment
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Get User Segment
+      tags:
+      - get
+  /api/users/create/:id:
+    post:
+      consumes:
+      - application/json
+      description: create segment
+      operationId: create-user-segment
+      parameters:
+      - description: segment info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/tech.UserSegment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Create User Segment
+      tags:
+      - create
+  /api/users/delete/:id:
+    delete:
+      consumes:
+      - application/json
+      description: delete segment
+      operationId: delete-user-segment
+      parameters:
+      - description: segment info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/tech.UserSegment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Delete User Segment
+      tags:
+      - delete
+  /api/users/history/:id:
+    get:
+      consumes:
+      - application/json
+      description: get user history
+      operationId: history-segment
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Get User History Segment
+      tags:
+      - history
+  /api/users/random/:id:
+    post:
+      consumes:
+      - application/json
+      description: random segment
+      operationId: random-segment
+      parameters:
+      - description: segment info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/tech.Segment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Random User Segment
+      tags:
+      - random
+  /api/users/schedule/:id:
+    post:
+      consumes:
+      - application/json
+      description: schedule post delete segment
+      operationId: schedule-post-segment
+      parameters:
+      - description: segment info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/tech.Segment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Schedule Post and Delete User Segment
+      tags:
+      - post delete
 swagger: "2.0"

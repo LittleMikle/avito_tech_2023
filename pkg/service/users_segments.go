@@ -55,7 +55,7 @@ func (s *UsersSegService) RandomSegments(segment tech.Segment, percent float64) 
 		randMap[val] = struct{}{}
 		err := s.repo.RandomSegments(segment, val)
 		if err != nil {
-			log.Error().Err(err).Msgf("failed with RandomSegments: ", err)
+			log.Error().Err(err).Msg("failed with RandomSegments: ")
 		}
 	}
 	return nil
