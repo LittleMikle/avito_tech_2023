@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "1cd16c3f-352d-4358-b391-fb22427eec00",
+		"name": "AVITO-TECH-2023 Мелушев Михаил",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28466357"
+	},
+	"item": [
+		{
+			"name": "localhost:8081/api/segments/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"O4KO\"\n}"
+				},
+				"url": "localhost:8081/api/segments/create"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8081/api/segments/create",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "localhost:8081/api/segments/1"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8081/api/users/create/2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"segments\":[{\"title\":\"A\"}, {\"title\":\"B\"}]\n}"
+				},
+				"url": "localhost:8081/api/users/create/2"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8081/api/users/delete/2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"segments\":[{\"title\":\"A\"}, {\"title\":\"B\"}]\n}"
+				},
+				"url": "localhost:8081/api/users/delete/2"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8081/api/users/2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8081/api/users/2"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8081/api/users/history/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8081/api/users/history/1"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8081/api/users/random?percent=70",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"AVITO_PERFORMANCE_VAS\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/api/users/random?percent=70",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"users",
+						"random"
+					],
+					"query": [
+						{
+							"key": "percent",
+							"value": "70"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8081/api/users/schedule/5?days=5",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"AVITO_DISCOUNT_30\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8081/api/users/schedule/5?days=5",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"users",
+						"schedule",
+						"5"
+					],
+					"query": [
+						{
+							"key": "days",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
