@@ -12,6 +12,7 @@ type Segmentation interface {
 
 type UsersSeg interface {
 	CreateUsersSeg(userId int, segment tech.Segment) error
+	DeleteUsersSeg(userId int, segment tech.Segment) error
 	GetUserSeg(userId int) ([]tech.USegments, error)
 	GetHistory(userId int) error
 	ScheduleDelete(userId, days int, segment tech.Segment) error

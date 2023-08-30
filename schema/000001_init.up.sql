@@ -32,4 +32,13 @@ CREATE TABLE user_history
     execution_time timestamptz not null DEFAULT  CURRENT_TIMESTAMP
 );
 
+DROP EXTENSION IF EXISTS pg_cron;
+CREATE EXTENSION pg_cron;
 
+SELECT cron.schedule('* * * * *', $$DELETE FROM user_segment WHERE added_at < now() - interval '1 minute'$$);
+
+select cron.unschedule('JOPA NEGRA');
+
+SELECT * FROM cron.job;
+
+DELETE FROM user_segment WHERE added_at < now() - interval '1 minute'

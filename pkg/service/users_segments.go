@@ -18,6 +18,10 @@ func (s *UsersSegService) CreateUsersSeg(userId int, segment tech.Segment) error
 	return s.repo.CreateUsersSeg(userId, segment)
 }
 
+func (s *UsersSegService) DeleteUsersSeg(userId int, segment tech.Segment) error {
+	return s.repo.DeleteUsersSeg(userId, segment)
+}
+
 func (s *UsersSegService) GetUserSeg(userId int) ([]tech.USegments, error) {
 	return s.repo.GetUserSeg(userId)
 }

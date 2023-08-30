@@ -47,14 +47,39 @@ func (r *UsersSegPostgres) CreateUsersSeg(userId int, segment tech.Segment) erro
 	return tx.Commit()
 }
 
+func (r *UsersSegPostgres) DeleteUsersSeg(userId int, segment tech.Segment) error {
+	tx, err := r.db.Begin()
+	if err != nil {
+		return err
+	}
+
+	getIdQuery := fmt.Sprintf("SELECT id FROM %s WHERE title =$1", segmentsTable)
+	err = r.db.Get(&segment, getIdQuery, segment.Title)
+
+	deleteUsersSegQuery := fmt.Sprintf("DELETE FROM %s WHERE user_id=$1 AND segment_id=$2", userSegmentsTable)
+	_, err = r.db.Exec(deleteUsersSegQuery, userId, segment.Id)
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	operationType := "REMOVE"
+	historyQuery := fmt.Sprintf("INSERT INTO %s (user_id, segment_id, operation_type) VALUES ($1, $2, $3)", userHistoryTable)
+	_, err = r.db.Exec(historyQuery, userId, segment.Id, operationType)
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit()
+}
+
 func (r *UsersSegPostgres) GetUserSeg(userId int) ([]tech.USegments, error) {
 	var segments []tech.USegments
-
 	query := fmt.Sprintf("SELECT us.id, us.user_id, us.segment_id FROM %s us INNER JOIN %s s ON us.segment_id = s.id WHERE user_id =$1", userSegmentsTable, segmentsTable)
 	if err := r.db.Select(&segments, query, userId); err != nil {
 		return nil, err
 	}
-	fmt.Println(segments)
 	return segments, nil
 }
 
@@ -72,18 +97,39 @@ func (r *UsersSegPostgres) GetHistory(userId int) error {
 }
 
 func (r *UsersSegPostgres) ScheduleDelete(userId, days int, segment tech.Segment) error {
+	tx, err := r.db.Begin()
+	if err != nil {
+		return err
+	}
+
 	getIdQuery := fmt.Sprintf("SELECT id FROM %s WHERE title =$1", segmentsTable)
-	err := r.db.Get(&segment, getIdQuery, segment.Title)
+	err = r.db.Get(&segment, getIdQuery, segment.Title)
 
-	deleteQuery := fmt.Sprintf("DELETE FROM %s WHERE user_id=$1 AND segment_id=$2", userSegmentsTable)
-	_, err = r.db.Exec(deleteQuery, userId, segment.Id)
+	createUsersSegQuery := fmt.Sprintf("INSERT INTO %s (user_id, segment_id) SELECT %d, %d WHERE NOT EXISTS (SELECT id FROM user_segment WHERE user_id = $1 AND segment_id = $2)", userSegmentsTable, userId, segment.Id)
+	_, err = r.db.Exec(createUsersSegQuery, userId, segment.Id)
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
 
-	operationType := "REMOVED"
+	operationType := "ADD"
+	historyQuery := fmt.Sprintf("INSERT INTO %s (user_id, segment_id, operation_type) VALUES ($1, $2, $3)", userHistoryTable)
+	_, err = r.db.Exec(historyQuery, userId, segment.Id, operationType)
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	deleteQuery := fmt.Sprintf("SELECT cron.schedule('* * * * *', $$DELETE FROM %s WHERE added_at < now() - interval '%d day' AND user_id=%d AND segment_id=%d$$)", userSegmentsTable, days, userId, segment.Id)
+	fmt.Println(deleteQuery)
+	_, err = r.db.Exec(deleteQuery)
+
+	operationType = "REMOVE"
 	operationTime := time.Now()
-	historyQuery := fmt.Sprintf("INSERT INTO %s (user_id, segment_id, operation_type, execution_time) VALUES ($1, $2, $3, ($4::timestamptz))", userHistoryTable)
+	historyQuery = fmt.Sprintf("INSERT INTO %s (user_id, segment_id, operation_type, execution_time) VALUES ($1, $2, $3, ($4::timestamptz))", userHistoryTable)
 	_, err = r.db.Exec(historyQuery, userId, segment.Id, operationType, operationTime)
 
-	return err
+	return tx.Commit()
 }
 
 func (r *UsersSegPostgres) CountRows() (int, error) {

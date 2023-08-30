@@ -4,7 +4,6 @@ version: "3.8"
 services:
   app:
     build: ./
-    command: ./wait-for-postgres.sh db ./app
     ports:
       - "8081:8081"
     depends_on:
@@ -15,7 +14,7 @@ services:
 
   db:
     restart: always
-    image: postgres:latest
+    image: postgres:15.1
     volumes:
       - ./.database/postgres/data:/var/lib/postgresql/data
     environment:

@@ -15,6 +15,11 @@ import (
 	"syscall"
 )
 
+// @title Melushev Mikhail Avito
+// @version 1.0
+// @description API Server for Avito Test 2023 Application
+// @host localhost:8081
+// @BasePath /api
 func main() {
 	err := initConfig()
 	if err != nil {

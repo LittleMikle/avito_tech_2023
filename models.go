@@ -15,8 +15,7 @@ type UserSegment struct {
 }
 
 type USegments struct {
-	Id          int    `json:"id" db:"id"`
-	UserId      int    `json:"user_id" db:"user_id"`
-	SegmentId   int    `json:"segment_id" db:"segment_id" binding:"required"`
-	SegmentName string `json:"segment_name" bd:"segment_name" binding:"required"`
+	Id        int `json:"id" db:"id"`
+	UserId    int `json:"user_id" db:"user_id"`
+	SegmentId int `json:"segment_id" db:"segment_id" binding:"required"`
 }

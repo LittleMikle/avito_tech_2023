@@ -5,6 +5,8 @@ import (
 	"github.com/LittleMikle/avito_tech_2023/pkg/repository"
 )
 
+//go:generate mockgen -source=service.go -destination=mocks/mock.go
+
 type Segmentation interface {
 	CreateSegment(segment tech.Segment) (int, error)
 	DeleteSegment(id int) error
@@ -12,6 +14,7 @@ type Segmentation interface {
 
 type UsersSeg interface {
 	CreateUsersSeg(userId int, segment tech.Segment) error
+	DeleteUsersSeg(userId int, segment tech.Segment) error
 	GetUserSeg(userId int) ([]tech.USegments, error)
 	GetHistory(userId int) error
 	ScheduleDelete(userId, days int, segment tech.Segment) error
