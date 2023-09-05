@@ -39,12 +39,21 @@ go test -v ./...
 
 ![Screenshot from 2023-08-30 20-36-21](https://github.com/LittleMikle/avito_tech_2023/assets/101155101/4f41c79b-8cff-4a3e-ad3a-1410f5939de6)
 
+Сегмент появился:
+
+![Screenshot from 2023-09-05 14-50-38](https://github.com/LittleMikle/avito_tech_2023/assets/101155101/f5ff8f1f-530e-4ba6-ab2c-027baa9282ac)
+
+
 Удаление сегмента:
 
 ![Screenshot from 2023-08-30 20-37-06](https://github.com/LittleMikle/avito_tech_2023/assets/101155101/3e10ae95-8824-40a7-bd7f-ce86991043cb)
 
+Сегмент удалился из базы:
 
-Добавление сегментов пользователю:
+![Screenshot from 2023-09-05 14-51-39](https://github.com/LittleMikle/avito_tech_2023/assets/101155101/84fcf958-afa6-442c-8ebb-c0948fb8bb0a)
+
+
+Добавление сегментов пользователю (добавлять можно только уже созданные сегменты):
 
 ![Screenshot from 2023-08-30 20-39-48](https://github.com/LittleMikle/avito_tech_2023/assets/101155101/0482363c-2f47-4f4a-8cc9-4dad83fdf58a)
 
