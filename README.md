@@ -33,6 +33,9 @@ swag init -g cmd/main.go
 
 go test -v ./...
 
+![Screenshot from 2023-09-05 14-53-39](https://github.com/LittleMikle/avito_tech_2023/assets/101155101/41e99600-fb8b-4e1b-a7fc-9162e5e6431d)
+
+
 ## Postman коллекция лежит в корневой папке
 
 Создание сегмента:
