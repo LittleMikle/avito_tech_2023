@@ -1,3 +1,10 @@
+DROP TABLE IF EXISTS segments;
+CREATE TABLE segments
+(
+    id serial not null unique,
+    title varchar(255) not null  unique
+);
+
 DROP TABLE IF EXISTS users;
 CREATE TABLE users
 (
@@ -24,12 +31,7 @@ CREATE TABLE user_history
     execution_time timestamptz not null DEFAULT  CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS segments;
-CREATE TABLE segments
-(
-    id serial not null unique,
-    title varchar(255) not null  unique
-);
+
 
 DROP EXTENSION IF EXISTS pg_cron;
 CREATE EXTENSION pg_cron;
